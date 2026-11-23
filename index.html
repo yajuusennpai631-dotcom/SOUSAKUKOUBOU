@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101411">
+  <meta name="description" content="AI創作工房は、作品・アイデア・知識を好きなタイミングで共有し、気軽に質問や交流ができるクリエイティブコミュニティです。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI創作工房 — 好きなときに、好きなものを。">
+  <meta property="og:description" content="何か共有したいことができたときに、戻ってこられる場所。">
+  <title>AI創作工房 — 好きなときに、好きなものを。</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101411;
+      --surface: #171e19;
+      --surface-2: #1d2721;
+      --text: #f1f5f1;
+      --muted: #a2aea5;
+      --line: rgba(220, 239, 224, .12);
+      --mint: #b8e5c5;
+      --mint-strong: #8dcc9f;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 78% 8%, rgba(113, 165, 128, .13), transparent 32rem),
+        radial-gradient(ellipse at 8% 48%, rgba(91, 125, 101, .08), transparent 28rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      line-height: 1.75;
+      letter-spacing: .015em;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .wrap { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+    .header {
+      position: sticky; top: 0; z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(16, 20, 17, .82);
+      backdrop-filter: blur(18px);
+    }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 750; letter-spacing: .04em; }
+    .brand-mark {
+      width: 34px; height: 34px; display: grid; place-items: center;
+      border: 1px solid rgba(184,229,197,.48); border-radius: 11px;
+      color: var(--mint); font-size: 13px; font-weight: 800;
+      background: linear-gradient(145deg, rgba(184,229,197,.16), rgba(184,229,197,.02));
+    }
+    .nav-links { display: flex; align-items: center; gap: 30px; color: var(--muted); font-size: 13px; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta, .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 46px; padding: 0 19px; border-radius: 999px;
+      border: 1px solid rgba(184,229,197,.38); color: #101711;
+      background: var(--mint); font-size: 13px; font-weight: 750;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .nav-cta:hover, .button:hover { transform: translateY(-2px); background: #d0f0d8; }
+    .button.secondary { color: var(--text); background: rgba(255,255,255,.035); border-color: var(--line); }
+    .button.secondary:hover { background: rgba(255,255,255,.08); border-color: rgba(184,229,197,.35); }
+    .hero { min-height: 650px; display: grid; align-items: center; padding: 92px 0 100px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 60px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--mint); font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+    .eyebrow:before { content: ""; width: 25px; height: 1px; background: var(--mint-strong); }
+    h1 { margin: 22px 0 20px; font-size: clamp(42px, 6.3vw, 76px); line-height: 1.18; letter-spacing: -.055em; font-weight: 760; }
+    h1 span { color: var(--mint); }
+    .hero-copy { max-width: 520px; margin: 0; color: var(--muted); font-size: 15px; line-height: 2.1; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 42px; color: #849188; font-size: 11px; }
+    .hero-note:before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--mint-strong); box-shadow: 0 0 14px rgba(141,204,159,.7); }
+    .visual { position: relative; min-height: 430px; display: grid; place-items: center; }
+    .visual-glow { position: absolute; width: 340px; height: 340px; border-radius: 50%; background: rgba(143,195,155,.13); filter: blur(65px); }
+    .orbit { position: absolute; width: 370px; height: 370px; border: 1px solid rgba(184,229,197,.16); border-radius: 50%; transform: rotate(-22deg) scaleY(.72); }
+    .orbit:before, .orbit:after { content: ""; position: absolute; border: 1px solid rgba(184,229,197,.12); border-radius: 50%; inset: 30px; }
+    .orbit:after { inset: 66px; }
+    .art-card {
+      position: absolute; width: 220px; min-height: 270px; padding: 17px;
+      border: 1px solid rgba(221,242,225,.18); border-radius: 18px;
+      background: linear-gradient(150deg, rgba(41,57,45,.94), rgba(22,30,24,.94));
+      box-shadow: 0 28px 80px rgba(0,0,0,.38);
+    }
+    .art-card.main { z-index: 2; transform: rotate(-5deg) translate(-8px, 5px); }
+    .art-card.back { width: 190px; min-height: 225px; transform: rotate(10deg) translate(115px, 18px); opacity: .72; }
+    .art-top { display: flex; justify-content: space-between; color: #a7b9aa; font-size: 9px; letter-spacing: .12em; }
+    .art-image {
+      height: 170px; margin: 17px 0 13px; overflow: hidden; position: relative;
+      border-radius: 11px; background:
+        radial-gradient(ellipse at 50% 36%, rgba(222,244,220,.8) 0 3%, transparent 4%),
+        radial-gradient(ellipse at 50% 46%, rgba(167,211,173,.55) 0 12%, transparent 13%),
+        radial-gradient(ellipse at 50% 78%, rgba(112,160,122,.5), transparent 42%),
+        linear-gradient(145deg, #314a38, #17251c 70%);
+    }
+    .art-image:before { content: ""; position: absolute; width: 130px; height: 130px; border: 1px solid rgba(224,246,224,.4); border-radius: 50%; top: 18px; left: 50%; transform: translateX(-50%); box-shadow: 0 0 45px rgba(188,233,192,.18), inset 0 0 35px rgba(188,233,192,.1); }
+    .art-image:after { content: ""; position: absolute; width: 180px; height: 90px; bottom: -28px; left: 50%; transform: translateX(-50%); border-radius: 50% 50% 0 0; background: linear-gradient(90deg, transparent, rgba(157,204,164,.48), transparent); filter: blur(9px); }
+    .art-title { font-size: 12px; font-weight: 700; }
+    .art-sub { color: #8d9e91; font-size: 9px; margin-top: 3px; }
+    .floating-tag { position: absolute; z-index: 4; padding: 10px 14px; border: 1px solid var(--line); border-radius: 12px; background: rgba(25,35,28,.88); color: #dce9dd; font-size: 10px; box-shadow: 0 14px 35px rgba(0,0,0,.22); }
+    .tag-one { top: 58px; left: 0; }
+    .tag-two { right: -2px; bottom: 65px; }
+    section { padding: 104px 0; }
+    .section-head { max-width: 650px; margin-bottom: 42px; }
+    .section-kicker { color: var(--mint-strong); font-size: 11px; font-weight: 800; letter-spacing: .18em; }
+    h2 { margin: 12px 0 14px; font-size: clamp(29px, 4vw, 43px); line-height: 1.35; letter-spacing: -.04em; }
+    .section-desc { margin: 0; color: var(--muted); font-size: 14px; line-height: 2; }
+    .mission { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: linear-gradient(100deg, rgba(184,229,197,.045), transparent 70%); }
+    .mission-inner { max-width: 900px; margin: auto; text-align: center; }
+    .mission-quote { margin: 28px 0 20px; font-size: clamp(25px, 4.2vw, 46px); line-height: 1.65; font-weight: 700; letter-spacing: -.035em; }
+    .mission-quote span { color: var(--mint); }
+    .mission-caption { color: var(--muted); font-size: 13px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { min-height: 220px; padding: 27px; border: 1px solid var(--line); border-radius: 17px; background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012)); transition: transform .22s ease, border-color .22s ease, background .22s ease; }
+    .card:hover { transform: translateY(-4px); border-color: rgba(184,229,197,.3); background: rgba(184,229,197,.045); }
+    .card-icon { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid rgba(184,229,197,.2); border-radius: 13px; color: var(--mint); background: rgba(184,229,197,.07); font-size: 18px; }
+    .card h3 { margin: 22px 0 8px; font-size: 17px; }
+    .card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.9; }
+    .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 42px; }
+    .principle { display: flex; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+    .number { color: var(--mint-strong); font-size: 11px; font-weight: 800; letter-spacing: .12em; padding-top: 4px; }
+    .principle h3 { margin: 0 0 5px; font-size: 15px; }
+    .principle p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.9; }
+    .join { padding-top: 30px; }
+    .join-panel { position: relative; overflow: hidden; padding: 66px 32px; border: 1px solid rgba(184,229,197,.2); border-radius: 22px; text-align: center; background: radial-gradient(ellipse at 50% 0%, rgba(184,229,197,.13), transparent 65%), var(--surface); }
+    .join-panel:after { content: ""; position: absolute; width: 300px; height: 300px; right: -160px; bottom: -210px; border: 1px solid rgba(184,229,197,.12); border-radius: 50%; box-shadow: 0 0 0 35px rgba(184,229,197,.025), 0 0 0 70px rgba(184,229,197,.02); }
+    .join-panel h2 { margin-top: 0; }
+    .join-panel p { max-width: 540px; margin: 0 auto 26px; color: var(--muted); font-size: 13px; }
+    footer { padding: 30px 0; border-top: 1px solid var(--line); color: #829087; font-size: 11px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .footer-brand { color: var(--text); font-weight: 700; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { *, *:before, *:after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
+    @media (max-width: 800px) {
+      .nav-links { display: none; }
+      .hero { min-height: auto; padding: 76px 0 70px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 20px; }
+      .visual { min-height: 360px; margin-top: 4px; }
+      .orbit { width: 310px; height: 310px; }
+      .art-card { transform: scale(.9); }
+      .art-card.main { transform: rotate(-5deg) translate(-8px, 5px) scale(.9); }
+      .art-card.back { transform: rotate(10deg) translate(90px, 18px) scale(.85); }
+      .tag-one { left: 4%; top: 36px; }
+      .tag-two { right: 2%; bottom: 30px; }
+      section { padding: 76px 0; }
+      .cards { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 36px, var(--max)); }
+      .nav { min-height: 66px; }
+      .brand { font-size: 13px; }
+      .nav-cta { min-height: 39px; padding: 0 13px; font-size: 11px; }
+      h1 { font-size: clamp(39px, 12vw, 57px); }
+      .hero-copy { font-size: 13px; }
+      .hero-actions { gap: 9px; }
+      .button { min-height: 43px; padding: 0 15px; font-size: 12px; }
+      .visual { min-height: 320px; margin-inline: -10px; }
+      .orbit { width: 270px; height: 270px; }
+      .art-card { width: 190px; min-height: 235px; }
+      .art-card.main { transform: rotate(-5deg) translate(-8px, 5px) scale(.82); }
+      .art-card.back { transform: rotate(10deg) translate(78px, 18px) scale(.78); }
+      .art-image { height: 145px; }
+      .floating-tag { font-size: 9px; padding: 8px 10px; }
+      .cards, .principles { grid-template-columns: 1fr; }
+      .card { min-height: 0; padding: 23px; }
+      .join-panel { padding: 48px 20px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="AI創作工房 ホーム">
+        <span class="brand-mark">AK</span><span>AI創作工房</span>
+      </a>
+      <nav class="nav-links" aria-label="メインナビゲーション">
+        <a href="#about">ABOUT</a>
+        <a href="#activities">ACTIVITIES</a>
+        <a href="#principles">POLICY</a>
+      </nav>
+      <a class="nav-cta" href="#community">コミュニティについて <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="reveal">
+          <div class="eyebrow">AI CREATIVE COMMUNITY</div>
+          <h1>好きなときに、<br><span>好きなものを。</span></h1>
+          <p class="hero-copy">作品を共有したいとき。ちょっと質問したいとき。新しいツールを見つけたとき。AI創作工房は、あなたのタイミングで気軽に立ち寄れる創作コミュニティです。</p>
+          <div class="hero-actions">
+            <a class="button" href="#about">工房について知る <span aria-hidden="true">→</span></a>
+            <a class="button secondary" href="#activities">できることを見る</a>
+          </div>
+          <div class="hero-note">投稿も参加も、自分のペースで。</div>
+        </div>
+        <div class="visual reveal" aria-hidden="true">
+          <div class="visual-glow"></div><div class="orbit"></div>
+          <div class="art-card back">
+            <div class="art-top"><span>IDEA / 002</span><span>✳</span></div>
+            <div class="art-image"></div>
+            <div class="art-title">A new perspective</div><div class="art-sub">Ideas take many forms.</div>
+          </div>
+          <div class="art-card main">
+            <div class="art-top"><span>CREATION / 001</span><span>✳</span></div>
+            <div class="art-image"></div>
+            <div class="art-title">Create at your own pace</div><div class="art-sub">Share what inspires you.</div>
+          </div>
+          <div class="floating-tag tag-one">✦ 作品・アイデアの共有</div>
+          <div class="floating-tag tag-two">↗ 質問・情報交換も自由に</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mission" id="about">
+      <div class="wrap mission-inner reveal">
+        <div class="section-kicker">OUR PURPOSE</div>
+        <p class="mission-quote">「毎日会話しなければならない場所」ではなく、<br><span>「何か共有したいことができたときに戻ってこられる場所」。</span></p>
+        <p class="mission-caption">AI創作工房が大切にしている、コミュニティの目標です。</p>
+      </div>
+    </section>
+
+    <section id="activities">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-kicker">WHAT YOU CAN DO</div>
+          <h2>使い方は、あなた次第。</h2>
+          <p class="section-desc">決まった活動への参加や、毎日の発言は必要ありません。共有したいことや聞きたいことがあるときに、自由に活用できます。</p>
+        </div>
+        <div class="cards">
+          <article class="card reveal"><div class="card-icon">✧</div><h3>作品を共有する</h3><p>AIイラスト、小説、キャラクター、動画など。完成した作品も制作途中のアイデアも共有できます。</p></article>
+          <article class="card reveal"><div class="card-icon">⌕</div><h3>気軽に質問する</h3><p>ツールの使い方や制作中の悩みなど、分からないことを自分のタイミングで相談できます。</p></article>
+          <article class="card reveal"><div class="card-icon">⌘</div><h3>知識・情報を交換する</h3><p>AIサービス、新しい機能、便利なツールやプロンプトなど、役立つ情報を共有できます。</p></article>
+          <article class="card reveal"><div class="card-icon">◎</div><h3>アイデアを共有する</h3><p>思いついた設定や構想、試してみたいことなど、まだ形になっていない発想も歓迎します。</p></article>
+          <article class="card reveal"><div class="card-icon">↗</div><h3>感想を伝え合う</h3><p>作品への感想やアドバイスを通じて、互いの創作を知るきっかけを作れます。</p></article>
+          <article class="card reveal"><div class="card-icon">＋</div><h3>自分のペースで参加する</h3><p>見るだけの日があっても、久しぶりの投稿でも大丈夫。参加の仕方は自由です。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="principles">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-kicker">COMMUNITY POLICY</div>
+          <h2>心地よく使える場所であるために。</h2>
+          <p class="section-desc">誰もが無理なく参加できるように、AI創作工房では次の考え方を大切にします。</p>
+        </div>
+        <div class="principles">
+          <div class="principle reveal"><div class="number">01</div><div><h3>参加を強制しない</h3><p>毎日のログインや発言、投稿頻度を求めません。</p></div></div>
+          <div class="principle reveal"><div class="number">02</div><div><h3>気軽な投稿を歓迎する</h3><p>完成度や経験にかかわらず、共有や質問ができます。</p></div></div>
+          <div class="principle reveal"><div class="number">03</div><div><h3>互いの創作を尊重する</h3><p>好みや表現の違いを認め、相手を尊重した交流を大切にします。</p></div></div>
+          <div class="principle reveal"><div class="number">04</div><div><h3>無理のない交流を大切にする</h3><p>雑談も歓迎しますが、会話を続けること自体を目的にはしません。</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="join" id="community">
+      <div class="wrap">
+        <div class="join-panel reveal">
+          <div class="section-kicker">WELCOME TO THE STUDIO</div>
+          <h2>共有したいことができたら、<br>いつでも。</h2>
+          <p>創作が好きな人も、AIについて知りたい人も。自分のペースで参加できる場所を、一緒につくっていきましょう。</p>
+          <a class="button secondary" href="#top">ページのトップへ戻る ↑</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="footer-brand">AI創作工房</div>
+      <div>© <span id="year"></span> AI創作工房. All rights reserved.</div>
+    </div>
+  </footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+  </script>
+</body>
+</html>
